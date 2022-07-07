@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_143349) do
   enable_extension "plpgsql"
 
   create_table "mentor_topics", force: :cascade do |t|
-    t.string "rating"
+    t.float "rating"
     t.bigint "mentor_id"
     t.bigint "topic_id"
     t.datetime "created_at", null: false
