@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reservations
   resources :mentor_topics
   resources :topics
   resources :mentors
