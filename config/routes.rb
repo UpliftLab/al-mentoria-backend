@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :topics
   resources :mentors
   devise_for :users
   resources :users
