@@ -11,7 +11,7 @@ gem 'rswag', '~> 2.5', '>= 2.5.1'
 
 gem 'cancancan', '~> 3.4.0'
 
-gem "devise", "~> 4.8"
+gem 'devise', '~> 4.8'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.3'

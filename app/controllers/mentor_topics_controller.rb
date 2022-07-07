@@ -1,5 +1,5 @@
 class MentorTopicsController < ApplicationController
-  before_action :set_mentor_topic, only: %i[ show update destroy ]
+  before_action :set_mentor_topic, only: %i[show update destroy]
 
   # GET /mentor_topics
   def index
@@ -39,13 +39,14 @@ class MentorTopicsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mentor_topic
-      @mentor_topic = MentorTopic.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def mentor_topic_params
-      params.require(:mentor_topic).permit(:rating)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_mentor_topic
+    @mentor_topic = MentorTopic.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mentor_topic_params
+    params.require(:mentor_topic).permit(:rating)
+  end
 end

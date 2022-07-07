@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: %i[ show update destroy ]
+  before_action :set_topic, only: %i[show update destroy]
 
   # GET /topics
   def index
@@ -39,13 +39,14 @@ class TopicsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_topic
-      @topic = Topic.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def topic_params
-      params.require(:topic).permit(:label, :icon)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_topic
+    @topic = Topic.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def topic_params
+    params.require(:topic).permit(:label, :icon)
+  end
 end
