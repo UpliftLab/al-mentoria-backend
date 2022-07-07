@@ -75,6 +75,7 @@ GEM
     bullet (7.0.2)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    cancancan (3.4.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.5.0)
@@ -230,6 +231,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bullet (~> 7.0.2)
+  cancancan (~> 3.4.0)
   debug
   pg (~> 1.1)
   puma (~> 5.0)
