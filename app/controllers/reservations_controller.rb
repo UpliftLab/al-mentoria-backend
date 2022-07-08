@@ -3,7 +3,20 @@ class ReservationsController < ApplicationController
 
   # GET /reservations
   def index
-    @reservations = Reservation.all.as_json(include: [:user, :mentor, :topic])
+    @reservations = Reservation.all.as_json(
+      only: [:id, :date],
+      include: {
+        mentor: {
+          only: [:name, :photo, :bio],
+        },
+        user: {
+          only: [:id, :name],
+        },
+        topic: {
+          only: [:label, :icon],
+        },
+      },
+    )
     render json: @reservations
   end
 
