@@ -16,12 +16,34 @@ RSpec.describe '/mentor_topics', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # MentorTopic. As you add validations to MentorTopic, be sure to
   # adjust the attributes here as well.
+
+  before do
+    @user = User.create!(name: 'Soufiane',
+                         email: 'soufiane@nomail.com',
+                         password: '123123',
+                         role: 'admin')
+    @mentor = Mentor.create!(user: @user,
+                             name: 'Da Rock',
+                             photo: 'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+                             bio: 'I am a mentor from mars')
+    @topic = Topic.create!(label: 'Rails',
+                           icon: 'https://download.logo.wine/logo/Ruby_on_Rails/Ruby_on_Rails-Logo.wine.png')
+  end
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      mentor_id: @mentor.id,
+      topic_id: @topic.id,
+      rating: 3
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      mentor_id: @mentor.id,
+      topic_id: @topic.id,
+      rating: 10
+    }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -40,26 +62,18 @@ RSpec.describe '/mentor_topics', type: :request do
     end
   end
 
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      mentor_topic = MentorTopic.create! valid_attributes
-      get mentor_topic_url(mentor_topic), as: :json
-      expect(response).to be_successful
-    end
-  end
-
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new MentorTopic' do
         expect do
           post mentor_topics_url,
-               params: { mentor_topic: valid_attributes }, headers: valid_headers, as: :json
+               params: valid_attributes, headers: valid_headers, as: :json
         end.to change(MentorTopic, :count).by(1)
       end
 
       it 'renders a JSON response with the new mentor_topic' do
         post mentor_topics_url,
-             params: { mentor_topic: valid_attributes }, headers: valid_headers, as: :json
+             params: valid_attributes, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -76,40 +90,6 @@ RSpec.describe '/mentor_topics', type: :request do
       it 'renders a JSON response with errors for the new mentor_topic' do
         post mentor_topics_url,
              params: { mentor_topic: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: new_attributes }, headers: valid_headers, as: :json
-        mentor_topic.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'renders a JSON response with the mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end

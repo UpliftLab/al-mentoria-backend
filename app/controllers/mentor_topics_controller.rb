@@ -29,6 +29,6 @@ class MentorTopicsController < ApplicationController
   end
 
   def mentor_topic_params
-    params.require(:mentor_topic).permit(:rating, :topic, :mentor)
+    params.permit(:rating, :topic_id, :mentor_id)
   end
 end
