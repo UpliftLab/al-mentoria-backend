@@ -7,10 +7,13 @@ class Ability
     return unless user.present?
 
     can :read, MentorTopic, :all
+    can :manage, Reservation, user_id: user.id
 
     return unless user.is? :admin
 
     can :manage, :all
+    # return unless user.admin?
+    # can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.
