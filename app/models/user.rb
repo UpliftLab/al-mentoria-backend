@@ -13,4 +13,8 @@ class User < ApplicationRecord
   def generate_jwt
     JWT.encode({ id:, exp: 1.month.from_now.to_i }, Rails.application.secrets.secret_key_base)
   end
+
+  def is?(requested_role)
+    role == requested_role.to_s
+  end
 end
