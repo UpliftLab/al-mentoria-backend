@@ -27,28 +27,20 @@ class MentorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /mentors/1
-  def update
-    if @mentor.update(mentor_params)
-      render json: @mentor
-    else
-      render json: @mentor.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /mentors/1
   def destroy
     @mentor.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mentor
-      @mentor = Mentor.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def mentor_params
-      params.require(:mentor).permit(:user_id, :photo, :name, :bio)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_mentor
+    @mentor = Mentor.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mentor_params
+    params.require(:mentor).permit(:user_id, :photo, :name, :bio)
+  end
 end
