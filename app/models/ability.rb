@@ -6,7 +6,12 @@ class Ability
 
     return unless user.present?
 
-    can :read, :all
+    can :read, MentorTopic, :all
+    can :manage, Reservation, user_id: user.id
+
+    return unless user.is? :admin
+
+    can :manage, :all
     # return unless user.admin?
     # can :manage, :all
 

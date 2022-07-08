@@ -1,52 +1,49 @@
 class MentorTopicsController < ApplicationController
-  before_action :set_mentor_topic, only: %i[show update destroy]
+  before_action :authenticate_user!
 
-  # GET /mentor_topics
+  load_and_authorize_resource
+  before_action :set_mentor
+  before_action :set_mentor_topic, only: %i[destroy]
+
   def index
-    @mentor_topics = MentorTopic.all
+    @mentor_topics = @mentor.mentor_topics.as_json(include: %i[mentor topic])
 
     render json: @mentor_topics
   end
 
-  # GET /mentor_topics/1
-  def show
-    render json: @mentor_topic
-  end
-
-  # POST /mentor_topics
   def create
     @mentor_topic = MentorTopic.new(mentor_topic_params)
 
     if @mentor_topic.save
-      render json: @mentor_topic, status: :created, location: @mentor_topic
+      render json: @mentor_topic, status: :created
     else
       render json: @mentor_topic.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /mentor_topics/1
-  def update
-    if @mentor_topic.update(mentor_topic_params)
-      render json: @mentor_topic
-    else
-      render json: @mentor_topic.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /mentor_topics/1
   def destroy
-    @mentor_topic.destroy
+    if @mentor_topic.nil?
+      render status: :not_found
+    elsif !@mentor_topic.reservations.empty?
+      render status: :conflict
+    else
+      @mentor_topic.destroy
+      render status: :no_content
+    end
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_mentor_topic
-    @mentor_topic = MentorTopic.find(params[:id])
+    @mentor_topic = MentorTopic.find_by(id: params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  def set_mentor
+    @mentor = Mentor.find_by(id: params[:mentor_id])
+  end
+
   def mentor_topic_params
-    params.require(:mentor_topic).permit(:rating)
+    params.permit(:rating, :topic_id, :mentor_id)
   end
 end
