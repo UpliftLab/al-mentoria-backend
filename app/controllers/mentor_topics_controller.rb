@@ -2,10 +2,11 @@ class MentorTopicsController < ApplicationController
   before_action :authenticate_user!
 
   load_and_authorize_resource
+  before_action :set_mentor
   before_action :set_mentor_topic, only: %i[destroy]
 
   def index
-    @mentor_topics = Mentor.find(params[:mentor_id]).mentor_topics.as_json(include: %i[mentor topic])
+    @mentor_topics = @mentor.mentor_topics.as_json(include: %i[mentor topic])
 
     render json: @mentor_topics
   end
@@ -14,7 +15,7 @@ class MentorTopicsController < ApplicationController
     @mentor_topic = MentorTopic.new(mentor_topic_params)
 
     if @mentor_topic.save
-      render json: @mentor_topic, status: :created, location: @mentor_topic
+      render json: @mentor_topic, status: :created
     else
       render json: @mentor_topic.errors, status: :unprocessable_entity
     end
@@ -36,6 +37,10 @@ class MentorTopicsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_mentor_topic
     @mentor_topic = MentorTopic.find_by(id: params[:id])
+  end
+
+  def set_mentor
+    @mentor = Mentor.find_by(id: params[:mentor_id])
   end
 
   def mentor_topic_params
