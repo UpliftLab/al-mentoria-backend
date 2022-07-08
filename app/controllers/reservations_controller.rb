@@ -1,9 +1,10 @@
 class ReservationsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_reservation, only: %i[destroy]
 
   # GET /reservations
   def index
-    @reservations = Reservation.all.as_json(
+    @reservations = current_user.reservations.as_json(
       only: [:id, :date],
       include: {
         mentor: {
