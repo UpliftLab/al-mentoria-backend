@@ -19,11 +19,12 @@ class MentorsController < ApplicationController
   # POST /mentors
   def create
     @mentor = Mentor.new(mentor_params)
+    @mentor.user = current_user
 
     if @mentor.save
       render json: @mentor, status: :created, location: @mentor
     else
-      render json: @mentor.errors, status: :unprocessable_entity
+      render json: { error: @mentor.errors }, status: :unprocessable_entity
     end
   end
 
