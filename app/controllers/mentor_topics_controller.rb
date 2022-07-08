@@ -2,7 +2,7 @@ class MentorTopicsController < ApplicationController
   before_action :set_mentor_topic, only: %i[destroy]
 
   def index
-    @mentor_topics = MentorTopic.all
+    @mentor_topics = MentorTopic.all.as_json(include: %i[mentor topic])
 
     render json: @mentor_topics
   end
