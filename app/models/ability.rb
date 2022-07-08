@@ -8,9 +8,9 @@ class Ability
 
     can :read, MentorTopic, :all
 
-    can :read, :all
-    # return unless user.admin?
-    # can :manage, :all
+    return unless user.is? :admin
+
+    can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.
