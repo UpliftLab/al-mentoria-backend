@@ -19,10 +19,14 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1
   def destroy
-    if @reservation.destroy
-      render json: { message: "Reservation deleted" }, status: 202
+    unless @reservation.present?
+      render status: :not_found
     else
-      render json: @reservation.errors, status: :unprocessable_entity
+      if @reservation.destroy
+        render status: :no_content
+      else
+        render json: @reservation.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -30,11 +34,11 @@ class ReservationsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_reservation
-    @reservation = Reservation.find(params[:id])
+    @reservation = Reservation.find_by(id: params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def reservation_params
-    params.require(:reservation).permit(:date, :user_id, :mentor_topic_id)
+    params.permit(:date, :user_id, :mentor_topic_id)
   end
 end
