@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :reservations
+  resources :reservations, only: %i[index create destroy]
   resources :mentor_topics
   resources :topics
   resources :mentors
