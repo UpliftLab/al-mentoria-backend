@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :reservations, only: %i[index create destroy]
   resources :mentor_topics
   resources :topics
-  resources :mentors do
+  resources :mentors, only: %i[index show create destroy] do
     resources :mentor_topics, path: 'topics', only: %i[index create destroy]
   end
   devise_for :users,
@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       registrations: :registrations,
       sessions: :sessions
     }
+
+  root 'mentors#index'
 end
