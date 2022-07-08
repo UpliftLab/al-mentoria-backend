@@ -1,4 +1,6 @@
 class MentorTopicsController < ApplicationController
+  before_action :authenticate_user!
+
   load_and_authorize_resource
   before_action :set_mentor_topic, only: %i[destroy]
 
