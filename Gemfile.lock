@@ -100,6 +100,7 @@ GEM
       reline (>= 0.3.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
+    jwt (2.4.1)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -242,11 +243,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt
   bootsnap
   bullet (~> 7.0.2)
   cancancan (~> 3.4.0)
   debug
   devise (~> 4.8)
+  jwt
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors (~> 1.1)
