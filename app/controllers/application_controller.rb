@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def authenticate_user!(_)
+  def authenticate_user!(_ = {})
     head :unauthorized unless signed_in?
   end
 
