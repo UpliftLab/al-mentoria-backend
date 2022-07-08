@@ -51,13 +51,15 @@ RSpec.describe '/mentor_topics', type: :request do
   # MentorTopicsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    {
+      Authorization: "Bearer #{@user.generate_jwt}"
+    }
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
       MentorTopic.create! valid_attributes
-      get mentor_topics_url, headers: valid_headers, as: :json
+      get mentor_topics_url, params: { mentor_id: @mentor.id }, headers: valid_headers
       expect(response).to be_successful
     end
   end
