@@ -13,6 +13,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/mentors', type: :request do
+  before(:each) { load 'db/seeds.rb' }
   # This should return the minimal set of attributes required to create a valid
   # Mentor. As you add validations to Mentor, be sure to
   # adjust the attributes here as well.
@@ -33,18 +34,20 @@ RSpec.describe '/mentors', type: :request do
   end
 
   describe 'GET /index' do
-    it 'renders a successful response' do
-      Mentor.create! valid_attributes
-      get mentors_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
+    it 'renders a successful response with list of mentors' do
+      get mentors_url, headers: valid_headers
+      expect(response.body).to include 'Mostafa'
+      expect(response.body).to include 'Awais'
+      expect(response.body).to include 'Ammar'
     end
   end
 
   describe 'GET /show' do
-    it 'renders a successful response' do
-      mentor = Mentor.create! valid_attributes
-      get mentor_url(mentor), as: :json
+    it 'renders a successful response with a relevant resource' do
+      mentor = Mentor.last
+      get mentor_url(mentor)
       expect(response).to be_successful
+      expect(response.body).to include mentor.name
     end
   end
 
