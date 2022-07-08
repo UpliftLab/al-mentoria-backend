@@ -1,5 +1,8 @@
 class MentorsController < ApplicationController
-  before_action :set_mentor, only: %i[ show update destroy ]
+  before_action :authenticate_user!, except: %i[index show]
+  load_and_authorize_resource except: %i[index show]
+
+  before_action :set_mentor, only: %i[show destroy]
 
   # GET /mentors
   def index
