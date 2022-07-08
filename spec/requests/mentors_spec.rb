@@ -16,6 +16,7 @@ RSpec.describe '/mentors', type: :request do
   before(:each) do
     load 'db/seeds.rb'
     @admin_user = User.first
+    @normal_user = User.second
   end
   # This should return the minimal set of attributes required to create a valid
   # Mentor. As you add validations to Mentor, be sure to
@@ -44,6 +45,8 @@ RSpec.describe '/mentors', type: :request do
       Authorization: "Bearer #{@admin_user.generate_jwt}"
     }
   end
+
+  let(:normal_user_headers) { { Authorization: "Bearer #{@normal_user.generate_jwt}" } }
 
   describe 'GET /index' do
     it 'renders a successful response with list of mentors' do
@@ -92,6 +95,24 @@ RSpec.describe '/mentors', type: :request do
         post mentors_url,
              params: { mentor: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including('application/json'))
+      end
+    end
+
+    context 'with normal user' do
+      it 'renders a JSON response with errors for the new mentor' do
+        post mentors_url,
+             params: { mentor: valid_attributes }, headers: normal_user_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.content_type).to match(a_string_including('application/json'))
+      end
+    end
+
+    context 'without authentication' do
+      it 'renders a JSON response with errors for the new mentor' do
+        post mentors_url,
+             params: { mentor: valid_attributes }, as: :json
+        expect(response).to have_http_status(:unauthorized)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
