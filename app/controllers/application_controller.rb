@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
   respond_to :json
   before_action :process_token
-  before_action :authenticate_user!
   before_action :update_allowed_parameters, if: :devise_controller?
 
   protected
@@ -13,12 +12,12 @@ class ApplicationController < ActionController::API
   private
 
   def process_token
-    return unless request.headers['Authorization'].present?
+    return unless request.headers["Authorization"].present?
 
     begin
-      jwt_payload = JWT.decode(request.headers['Authorization'].split[1],
+      jwt_payload = JWT.decode(request.headers["Authorization"].split[1],
                                Rails.application.secrets.secret_key_base).first
-      @current_user_id = jwt_payload['id']
+      @current_user_id = jwt_payload["id"]
     rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
       head :unauthorized
     end

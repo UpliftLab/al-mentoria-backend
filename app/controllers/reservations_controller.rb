@@ -1,4 +1,5 @@
 class ReservationsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_reservation, only: %i[destroy]
 
@@ -8,15 +9,15 @@ class ReservationsController < ApplicationController
       only: %i[id date],
       include: {
         mentor: {
-          only: %i[name photo bio]
+          only: %i[name photo bio],
         },
         user: {
-          only: %i[id name]
+          only: %i[id name],
         },
         topic: {
-          only: %i[label icon]
-        }
-      }
+          only: %i[label icon],
+        },
+      },
     )
     render json: @reservations
   end
