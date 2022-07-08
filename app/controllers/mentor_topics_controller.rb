@@ -18,14 +18,21 @@ class MentorTopicsController < ApplicationController
   end
 
   def destroy
-    @mentor_topic.destroy
+    if @mentor_topic.nil?
+      render status: :not_found
+    elsif !@mentor_topic.reservations.empty?
+      render status: :conflict
+    else
+      @mentor_topic.destroy
+      render status: :no_content
+    end
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_mentor_topic
-    @mentor_topic = MentorTopic.find(params[:id])
+    @mentor_topic = MentorTopic.find_by(id: params[:id])
   end
 
   def mentor_topic_params
