@@ -5,18 +5,18 @@ class ReservationsController < ApplicationController
   # GET /reservations
   def index
     @reservations = current_user.reservations.as_json(
-      only: [:id, :date],
+      only: %i[id date],
       include: {
         mentor: {
-          only: [:name, :photo, :bio],
+          only: %i[name photo bio]
         },
         user: {
-          only: [:id, :name],
+          only: %i[id name]
         },
         topic: {
-          only: [:label, :icon],
-        },
-      },
+          only: %i[label icon]
+        }
+      }
     )
     render json: @reservations
   end
@@ -33,14 +33,14 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1
   def destroy
-    unless @reservation.present?
-      render status: :not_found
-    else
+    if @reservation.present?
       if @reservation.destroy
         render status: :no_content
       else
         render json: @reservation.errors, status: :unprocessable_entity
       end
+    else
+      render status: :not_found
     end
   end
 
