@@ -1,22 +1,15 @@
 class ReservationsController < ApplicationController
-  before_action :set_reservation, only: %i[show update destroy]
+  before_action :set_reservation, only: %i[destroy]
 
   # GET /reservations
   def index
-    @reservations = Reservation.all
-
+    @reservations = Reservation.all.as_json(include: [:user, :mentor, :topic])
     render json: @reservations
-  end
-
-  # GET /reservations/1
-  def show
-    render json: @reservation
   end
 
   # POST /reservations
   def create
     @reservation = Reservation.new(reservation_params)
-
     if @reservation.save
       render json: @reservation, status: :created, location: @reservation
     else
@@ -24,18 +17,13 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reservations/1
-  def update
-    if @reservation.update(reservation_params)
-      render json: @reservation
+  # DELETE /reservations/1
+  def destroy
+    if @reservation.destroy
+      render json: { message: "Reservation deleted" }, status: 202
     else
       render json: @reservation.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /reservations/1
-  def destroy
-    @reservation.destroy
   end
 
   private
