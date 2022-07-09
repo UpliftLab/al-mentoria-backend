@@ -30,7 +30,13 @@ class MentorsController < ApplicationController
 
   # DELETE /mentors/1
   def destroy
-    @mentor.destroy
+    if @mentor.reservations.present?
+      render json: { error: 'There are reservasions for this mentor!' }, status: :conflict
+    elsif @mentor.destroy
+      render status: :no_content
+    else
+      render json: { error: "Couldn't delete!" }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -42,6 +48,6 @@ class MentorsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def mentor_params
-    params.require(:mentor).permit(:user_id, :photo, :name, :bio)
+    params.require(:mentor).permit(:photo, :name, :bio)
   end
 end

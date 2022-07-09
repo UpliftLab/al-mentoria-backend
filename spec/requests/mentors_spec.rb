@@ -132,5 +132,15 @@ RSpec.describe '/mentors', type: :request do
         delete mentor_url(mentor), headers: valid_headers, as: :json
       end.to change(Mentor, :count).by(-1)
     end
+
+    it 'gives 404 on attempt for deleting non-existing mentor' do
+      delete mentor_url(Mentor.last.id + 1), headers: valid_headers, as: :json
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'gives error if user is not authorized' do
+      delete mentor_url(1)
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 end
