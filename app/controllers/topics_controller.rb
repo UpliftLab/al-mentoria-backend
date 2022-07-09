@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   def destroy
     if @topic.reservations.present?
-      render json: { error: 'There are reservations for this mentor!' }, status: :conflict
+      render json: { error: 'There are reservations for this topic!' }, status: :conflict
     elsif @topic.destroy
       render status: :no_content
     else

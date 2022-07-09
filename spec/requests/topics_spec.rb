@@ -133,7 +133,6 @@ RSpec.describe '/topics', type: :request do
       end
     end
 
-
     context 'with no user' do
       it 'does not authorize the creating of a new Topic' do
         expect do
@@ -150,34 +149,82 @@ RSpec.describe '/topics', type: :request do
         expect(response.body).to include 'Must be logged in'
       end
     end
-    # context 'with admin user' do
-    #   it 'renders a successful response with a list of topics for an admin user' do
-    #     get topics_url, headers: valid_headers
-    #     expect(response).to be_successful
-    #     expect(response.body).to include 'React'
-    #     expect(response.body).to include 'Bootstrap'
-    #     expect(response.body).to include 'Laravel'
-    #     expect(response.body).to include 'Node.js'
-    #   end
-    # end
+  end
 
-    # context 'with basic user' do
-    #   it 'renders a successful response with a list of topics for a basic user' do
-    #     get topics_url, headers: basic_user_headers
-    #     expect(response).to be_successful
-    #     expect(response.body).to include 'React'
-    #     expect(response.body).to include 'Bootstrap'
-    #     expect(response.body).to include 'Laravel'
-    #   end
-    # end
+  describe 'DELETE /destroy' do
+    context 'with existing Topic and admin user' do
+      it 'destroys the desired Topic' do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+        expect do
+          delete topic_url(Topic.last), headers: valid_headers, as: :json
+        end.to change(Topic, :count).by(-1)
+      end
+    end
 
-    # context 'without authentication' do
-    #   it 'renders a JSON response with an error in the body' do
-    #     get topics_url
-    #     expect(response).to have_http_status(:unauthorized)
-    #     expect(response.content_type).to match(a_string_including('application/json'))
-    #     expect(response.body).to include 'Must be logged in'
-    #   end
-    # end
+    context 'with existing Topic and basic user' do
+      it "doesn't destroys the desired Topic" do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+        expect do
+          delete topic_url(Topic.last), headers: basic_user_headers, as: :json
+        end.to change(Topic, :count).by(0)
+      end
+
+      it 'renders a JSON response with an error in the body' do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+
+        delete topic_url(Topic.last), headers: basic_user_headers, as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'You are not authorized to access this page.'
+      end
+    end
+
+    context 'with existing Topic but no user' do
+      it "doesn't destroys the desired Topic" do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+        expect do
+          delete topic_url(Topic.last), as: :json
+        end.to change(Topic, :count).by(0)
+      end
+
+      it 'renders a JSON response with an error in the body' do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+
+        delete topic_url(Topic.last), as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'Must be logged in'
+      end
+    end
+
+    context 'with existing Topic that has dependent reservations' do
+      it 'renders a JSON response with an error in the body' do
+        topic = Topic.last
+        MentorTopic.create!(mentor: Mentor.first, rating: 4, topic:)
+        Reservation.create!(mentor_topic: MentorTopic.last, date: Time.now.to_s, user: User.second)
+        delete topic_url(topic), headers: valid_headers
+
+        expect(response).to have_http_status(:conflict)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'There are reservations for this topic!'
+      end
+    end
+
+    context 'with non-existing Topic' do
+      it 'renders a JSON response with an error in the body' do
+        delete topic_url(id: Topic.last.id + 1), headers: valid_headers
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'Resource not found!'
+      end
+    end
   end
 end
