@@ -4,7 +4,7 @@ class CreateMentors < ActiveRecord::Migration[7.0]
       t.string :photo
       t.string :name
       t.string :bio
-      t.references :user, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
