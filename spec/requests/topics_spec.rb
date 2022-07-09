@@ -13,15 +13,26 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/topics', type: :request do
+  before(:each) do
+    load 'db/seeds.rb'
+    @admin_user = User.first
+    @basic_user = User.last
+  end
   # This should return the minimal set of attributes required to create a valid
   # Topic. As you add validations to Topic, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      label: 'Python',
+      icon: 'https://tinkercademy.com/wp-content/uploads/2018/04/python-icon-300x300.png'
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      label: 'Python',
+      icon: 'no url'
+    }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -29,99 +40,42 @@ RSpec.describe '/topics', type: :request do
   # TopicsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    {
+      Authorization: "Bearer #{@admin_user.generate_jwt}"
+    }
   end
+
+  let(:basic_user_headers) { { Authorization: "Bearer #{@basic_user.generate_jwt}" } }
 
   describe 'GET /index' do
-    it 'renders a successful response' do
-      Topic.create! valid_attributes
-      get topics_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      topic = Topic.create! valid_attributes
-      get topic_url(topic), as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'POST /create' do
-    context 'with valid parameters' do
-      it 'creates a new Topic' do
-        expect do
-          post topics_url,
-               params: { topic: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(Topic, :count).by(1)
+    context 'with admin user' do
+      it 'renders a successful response with a list of topics for an admin user' do
+        get topics_url, headers: valid_headers
+        expect(response).to be_successful
+        expect(response.body).to include 'React'
+        expect(response.body).to include 'Bootstrap'
+        expect(response.body).to include 'Laravel'
+        expect(response.body).to include 'Node.js'
       end
+    end
 
-      it 'renders a JSON response with the new topic' do
-        post topics_url,
-             params: { topic: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
+    context 'with basic user' do
+      it 'renders a successful response with a list of topics for a basic user' do
+        get topics_url, headers: basic_user_headers
+        expect(response).to be_successful
+        expect(response.body).to include 'React'
+        expect(response.body).to include 'Bootstrap'
+        expect(response.body).to include 'Laravel'
+      end
+    end
+
+    context 'without authentication' do
+      it 'renders a JSON response with an error in the body' do
+        get topics_url
+        expect(response).to have_http_status(:unauthorized)
         expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'Must be logged in'
       end
-    end
-
-    context 'with invalid parameters' do
-      it 'does not create a new Topic' do
-        expect do
-          post topics_url,
-               params: { topic: invalid_attributes }, as: :json
-        end.to change(Topic, :count).by(0)
-      end
-
-      it 'renders a JSON response with errors for the new topic' do
-        post topics_url,
-             params: { topic: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested topic' do
-        topic = Topic.create! valid_attributes
-        patch topic_url(topic),
-              params: { topic: new_attributes }, headers: valid_headers, as: :json
-        topic.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'renders a JSON response with the topic' do
-        topic = Topic.create! valid_attributes
-        patch topic_url(topic),
-              params: { topic: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the topic' do
-        topic = Topic.create! valid_attributes
-        patch topic_url(topic),
-              params: { topic: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-  end
-
-  describe 'DELETE /destroy' do
-    it 'destroys the requested topic' do
-      topic = Topic.create! valid_attributes
-      expect do
-        delete topic_url(topic), headers: valid_headers, as: :json
-      end.to change(Topic, :count).by(-1)
     end
   end
 end
