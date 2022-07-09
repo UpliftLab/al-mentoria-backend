@@ -64,6 +64,12 @@ RSpec.describe '/mentors', type: :request do
       expect(response).to be_successful
       expect(response.body).to include mentor.name
     end
+
+    it 'gives 404 error for non-existing mentor' do
+      id = Mentor.last.id + 10
+      get mentor_url(id)
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'POST /create' do

@@ -13,7 +13,11 @@ class MentorsController < ApplicationController
 
   # GET /mentors/1
   def show
-    render json: @mentor
+    if @mentor.present?
+      render json: @mentor
+    else
+      render status: :not_found
+    end
   end
 
   # POST /mentors
