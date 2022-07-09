@@ -38,4 +38,8 @@ class ApplicationController < ActionController::API
   rescue_from CanCan::AccessDenied do |exception|
     render json: { error: exception }, status: :unauthorized
   end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    render json: { error: 'Resource not found!' }, status: :not_found
+  end
 end
