@@ -31,7 +31,7 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1
   def destroy
     if @mentor.reservations.present?
-      render json: { error: 'There are reservasions for this mentor!' }, status: :conflict
+      render json: { error: 'There are reservations for this mentor!' }, status: :conflict
     elsif @mentor.destroy
       render status: :no_content
     else
