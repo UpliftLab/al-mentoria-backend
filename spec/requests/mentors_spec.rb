@@ -126,6 +126,7 @@ RSpec.describe '/mentors', type: :request do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested mentor' do
+      valid_attributes[:user] = @admin_user
       mentor = Mentor.create! valid_attributes
       expect do
         delete mentor_url(mentor), headers: valid_headers, as: :json
