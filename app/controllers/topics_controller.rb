@@ -17,22 +17,19 @@ class TopicsController < ApplicationController
     if @topic.save
       render json: @topic, status: :created, location: @topic
     else
-      render json: @topic.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /topics/1
-  def update
-    if @topic.update(topic_params)
-      render json: @topic
-    else
-      render json: @topic.errors, status: :unprocessable_entity
+      render json: { error: @topic.errors }, status: :unprocessable_entity
     end
   end
 
   # DELETE /topics/1
   def destroy
-    @topic.destroy
+    if @topic.reservations.present?
+      render json: { error: 'There are reservations for this mentor!' }, status: :conflict
+    elsif @topic.destroy
+      render status: :no_content
+    else
+      render json: { error: "Couldn't delete!" }, status: :unprocessable_entity
+    end
   end
 
   private
