@@ -19,12 +19,12 @@ class ApplicationController < ActionController::API
                                Rails.application.secrets.secret_key_base).first
       @current_user_id = jwt_payload['id']
     rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
-      render json: { error: 'Token expired!' },  status: :unauthorized
+      render json: { error: 'Token expired!' }, status: :unauthorized
     end
   end
 
   def authenticate_user!(_ = {})
-    render json: { error: 'Must be logged in' },  status: :unauthorized unless signed_in?
+    render json: { error: 'Must be logged in' }, status: :unauthorized unless signed_in?
   end
 
   def current_user
