@@ -1,16 +1,13 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: %i[show update destroy]
+  before_action :set_topic, only: :destroy
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /topics
   def index
-    @topics = Topic.all
+    @topics = Topic.all.as_json(only: %i[id label icon])
 
     render json: @topics
-  end
-
-  # GET /topics/1
-  def show
-    render json: @topic
   end
 
   # POST /topics
