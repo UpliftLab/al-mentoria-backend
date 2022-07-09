@@ -16,12 +16,27 @@ RSpec.describe '/mentor_topics', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # MentorTopic. As you add validations to MentorTopic, be sure to
   # adjust the attributes here as well.
+
+  before do
+    @user = User.first
+    @mentor = Mentor.first
+    @topic = Topic.first
+  end
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      mentor_id: @mentor.id,
+      topic_id: @topic.id,
+      rating: 3
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      mentor_id: @mentor.id,
+      topic_id: @topic.id,
+      rating: 10
+    }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -29,21 +44,15 @@ RSpec.describe '/mentor_topics', type: :request do
   # MentorTopicsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    {
+      Authorization: "Bearer #{@user.generate_jwt}"
+    }
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
       MentorTopic.create! valid_attributes
-      get mentor_topics_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      mentor_topic = MentorTopic.create! valid_attributes
-      get mentor_topic_url(mentor_topic), as: :json
+      get mentor_mentor_topics_url(@mentor), headers: valid_headers
       expect(response).to be_successful
     end
   end
@@ -52,14 +61,14 @@ RSpec.describe '/mentor_topics', type: :request do
     context 'with valid parameters' do
       it 'creates a new MentorTopic' do
         expect do
-          post mentor_topics_url,
-               params: { mentor_topic: valid_attributes }, headers: valid_headers, as: :json
+          post mentor_mentor_topics_url(@mentor),
+               params: valid_attributes, headers: valid_headers, as: :json
         end.to change(MentorTopic, :count).by(1)
       end
 
       it 'renders a JSON response with the new mentor_topic' do
-        post mentor_topics_url,
-             params: { mentor_topic: valid_attributes }, headers: valid_headers, as: :json
+        post mentor_mentor_topics_url(@mentor),
+             params: valid_attributes, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -68,48 +77,14 @@ RSpec.describe '/mentor_topics', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new MentorTopic' do
         expect do
-          post mentor_topics_url,
+          post mentor_mentor_topics_url(@mentor),
                params: { mentor_topic: invalid_attributes }, as: :json
         end.to change(MentorTopic, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new mentor_topic' do
-        post mentor_topics_url,
+        post mentor_mentor_topics_url(@mentor),
              params: { mentor_topic: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: new_attributes }, headers: valid_headers, as: :json
-        mentor_topic.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'renders a JSON response with the mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the mentor_topic' do
-        mentor_topic = MentorTopic.create! valid_attributes
-        patch mentor_topic_url(mentor_topic),
-              params: { mentor_topic: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -120,7 +95,7 @@ RSpec.describe '/mentor_topics', type: :request do
     it 'destroys the requested mentor_topic' do
       mentor_topic = MentorTopic.create! valid_attributes
       expect do
-        delete mentor_topic_url(mentor_topic), headers: valid_headers, as: :json
+        delete mentor_mentor_topic_url(@mentor, mentor_topic), headers: valid_headers, as: :json
       end.to change(MentorTopic, :count).by(-1)
     end
   end
