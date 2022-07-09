@@ -78,4 +78,106 @@ RSpec.describe '/topics', type: :request do
       end
     end
   end
+
+  describe 'POST /create' do
+    context 'with valid parameters and admin user' do
+      it 'creates a new Topic' do
+        expect do
+          post topics_url,
+               params: { topic: valid_attributes }, headers: valid_headers, as: :json
+        end.to change(Topic, :count).by(1)
+      end
+
+      it 'renders a JSON response with the new topic' do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: valid_headers, as: :json
+        expect(response).to have_http_status(:created)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'label'
+        expect(response.body).to include 'Python'
+        expect(response.body).to include 'icon'
+      end
+    end
+
+    context 'with invalid parameters' do
+      it "doesn't creates a new Topic" do
+        expect do
+          post topics_url,
+               params: { topic: invalid_attributes }, headers: valid_headers, as: :json
+        end.to change(Topic, :count).by(0)
+      end
+
+      it 'renders a JSON response with an error in the body' do
+        post topics_url,
+             params: { topic: invalid_attributes }, headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'only accepts urls'
+      end
+    end
+
+    context 'with basic user' do
+      it 'does not authorize the creating of a new Topic' do
+        expect do
+          post topics_url,
+               params: { topic: valid_attributes }, headers: basic_user_headers, as: :json
+        end.to change(Topic, :count).by(0)
+      end
+
+      it 'renders a JSON response with an error in the body' do
+        post topics_url,
+             params: { topic: valid_attributes }, headers: basic_user_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'You are not authorized to access this page.'
+      end
+    end
+
+
+    context 'with no user' do
+      it 'does not authorize the creating of a new Topic' do
+        expect do
+          post topics_url,
+               params: { topic: valid_attributes }, as: :json
+        end.to change(Topic, :count).by(0)
+      end
+
+      it 'renders a JSON response with an error in the body' do
+        post topics_url,
+             params: { topic: valid_attributes }, as: :json
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(response.body).to include 'Must be logged in'
+      end
+    end
+    # context 'with admin user' do
+    #   it 'renders a successful response with a list of topics for an admin user' do
+    #     get topics_url, headers: valid_headers
+    #     expect(response).to be_successful
+    #     expect(response.body).to include 'React'
+    #     expect(response.body).to include 'Bootstrap'
+    #     expect(response.body).to include 'Laravel'
+    #     expect(response.body).to include 'Node.js'
+    #   end
+    # end
+
+    # context 'with basic user' do
+    #   it 'renders a successful response with a list of topics for a basic user' do
+    #     get topics_url, headers: basic_user_headers
+    #     expect(response).to be_successful
+    #     expect(response.body).to include 'React'
+    #     expect(response.body).to include 'Bootstrap'
+    #     expect(response.body).to include 'Laravel'
+    #   end
+    # end
+
+    # context 'without authentication' do
+    #   it 'renders a JSON response with an error in the body' do
+    #     get topics_url
+    #     expect(response).to have_http_status(:unauthorized)
+    #     expect(response.content_type).to match(a_string_including('application/json'))
+    #     expect(response.body).to include 'Must be logged in'
+    #   end
+    # end
+  end
 end
