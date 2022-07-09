@@ -1,16 +1,13 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: %i[show update destroy]
+  before_action :set_topic, only: :destroy
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /topics
   def index
-    @topics = Topic.all
+    @topics = Topic.all.as_json(only: %i[id label icon])
 
     render json: @topics
-  end
-
-  # GET /topics/1
-  def show
-    render json: @topic
   end
 
   # POST /topics
@@ -18,24 +15,21 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     if @topic.save
-      render json: @topic, status: :created, location: @topic
+      render json: @topic, status: :created
     else
-      render json: @topic.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /topics/1
-  def update
-    if @topic.update(topic_params)
-      render json: @topic
-    else
-      render json: @topic.errors, status: :unprocessable_entity
+      render json: { error: @topic.errors }, status: :unprocessable_entity
     end
   end
 
   # DELETE /topics/1
   def destroy
-    @topic.destroy
+    if @topic.reservations.present?
+      render json: { error: 'There are reservations for this topic!' }, status: :conflict
+    elsif @topic.destroy
+      render status: :no_content
+    else
+      render json: { error: "Couldn't delete!" }, status: :unprocessable_entity
+    end
   end
 
   private
