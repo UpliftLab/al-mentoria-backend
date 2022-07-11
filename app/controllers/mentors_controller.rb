@@ -8,7 +8,7 @@ class MentorsController < ApplicationController
   def index
     @mentors = Mentor.all
 
-    render json: @mentors
+    render json: { data: @mentors }
   end
 
   # GET /mentors/1

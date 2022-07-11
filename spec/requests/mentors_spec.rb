@@ -51,9 +51,10 @@ RSpec.describe '/mentors', type: :request do
   describe 'GET /index' do
     it 'renders a successful response with list of mentors' do
       get mentors_url, headers: valid_headers
-      expect(response.body).to include 'Mostafa'
-      expect(response.body).to include 'Awais'
-      expect(response.body).to include 'Ammar'
+      json_response = JSON.parse(response.body)
+      expect(json_response).to have_key('data')
+      expect(json_response['data']).to be_an Array
+      expect(response.body).to include('Mostafa', 'Awais', 'Ammar')
     end
   end
 
