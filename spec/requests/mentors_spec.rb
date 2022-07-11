@@ -62,14 +62,19 @@ RSpec.describe '/mentors', type: :request do
     it 'renders a successful response with a relevant resource' do
       mentor = Mentor.last
       get mentor_url(mentor)
+      json_response = JSON.parse(response.body)
       expect(response).to be_successful
+      expect(json_response).to have_key('data')
       expect(response.body).to include mentor.name
     end
 
     it 'gives 404 error for non-existing mentor' do
       id = Mentor.last.id + 10
       get mentor_url(id)
+      json_response = JSON.parse(response.body)
       expect(response).to have_http_status(:not_found)
+      expect(json_response).to have_key 'errors'
+      expect(json_response['errors']).to be_an Array
     end
   end
 

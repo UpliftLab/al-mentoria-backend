@@ -13,7 +13,7 @@ class MentorsController < ApplicationController
 
   # GET /mentors/1
   def show
-    render json: @mentor
+    render json: { data: @mentor }
   end
 
   # POST /mentors
