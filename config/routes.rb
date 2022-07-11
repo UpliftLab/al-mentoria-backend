@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
   resources :reservations, only: %i[index create destroy]
-  resources :mentor_topics
   resources :topics, only: %i[index create destroy]
   resources :mentors, only: %i[index show create destroy] do
     resources :mentor_topics, path: "topics", only: %i[index create destroy]
