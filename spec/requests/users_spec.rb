@@ -27,14 +27,19 @@ RSpec.describe "users", type: :request do
   end
 
   path "/users" do
-    parameter name: "name", in: :path, type: :string, description: "name"
-    parameter name: "email", in: :path, type: :string, description: "email"
-    parameter name: "password", in: :path, type: :string, description: "password"
     post("sign-up") do
+      consumes "application/json"
+      parameter name: :users, in: :body, schema: {
+        type: :object,
+        properties: {
+          name: { type: :string },
+          email: { type: :string },
+          password: { type: :string },
+        },
+        required: ["email", "password"],
+      }
       response(200, "successful") do
-        let(:name) { "donald" }
-        let(:email) { "donald@nomail.com" }
-        let(:password) { "123123" }
+        let(:users) { { name: "John", email: "john@nomail.com", password: "123123" } }
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {
