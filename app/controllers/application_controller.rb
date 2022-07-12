@@ -37,6 +37,13 @@ class ApplicationController < ActionController::API
     @current_user_id.present?
   end
 
+  def create_error(message, details: {})
+    {
+      message:,
+      details:
+    }
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     render json: { error: exception }, status: :unauthorized
   end
