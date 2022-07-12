@@ -73,8 +73,8 @@ RSpec.describe '/mentors', type: :request do
       get mentor_url(id)
       json_response = JSON.parse(response.body)
       expect(response).to have_http_status(:not_found)
-      expect(json_response).to have_key 'errors'
-      expect(json_response['errors']).to be_an Array
+      expect(json_response).to have_key 'error'
+      expect(json_response['error']).to be_an Object
     end
   end
 
@@ -88,10 +88,17 @@ RSpec.describe '/mentors', type: :request do
       end
 
       it 'renders a JSON response with the new mentor' do
-        post mentors_url,
-             params: { mentor: valid_attributes }, headers: valid_headers, as: :json
+        post(
+          mentors_url,
+          params: { mentor: valid_attributes },
+          headers: valid_headers,
+          as: :json
+        )
+        json_response = JSON.parse(response.body)
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
+        expect(json_response).to have_key('data')
+        expect(json_response['data']).to include('name' => valid_attributes[:name])
       end
     end
 

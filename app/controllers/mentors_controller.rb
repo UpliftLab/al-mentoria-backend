@@ -22,9 +22,13 @@ class MentorsController < ApplicationController
     @mentor.user = current_user
 
     if @mentor.save
-      render json: @mentor, status: :created, location: @mentor
+      render json: { data: @mentor }, status: :created, location: @mentor
     else
-      render json: { error: @mentor.errors }, status: :unprocessable_entity
+      render json: { error: create_error(
+        "Mentor creation failed!",
+        details: @mentor.errors
+      )
+      }, status: :unprocessable_entity
     end
   end
 
