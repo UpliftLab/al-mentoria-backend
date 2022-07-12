@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     if user.save
       token = user.generate_jwt
-      render json: { data: {token: token.to_json} }
+      render json: { data: { token: token.to_json } }
     else
       render(
         json: {

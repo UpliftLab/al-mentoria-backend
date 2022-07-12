@@ -25,10 +25,9 @@ class MentorsController < ApplicationController
       render json: { data: @mentor }, status: :created, location: @mentor
     else
       render json: { error: create_error(
-        "Mentor creation failed!",
+        'Mentor creation failed!',
         details: @mentor.errors
-      )
-      }, status: :unprocessable_entity
+      ) }, status: :unprocessable_entity
     end
   end
 
