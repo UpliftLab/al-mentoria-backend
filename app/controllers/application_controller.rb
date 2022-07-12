@@ -44,4 +44,8 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound do
     render json: { error: 'Resource not found!' }, status: :not_found
   end
+
+  rescue_from ActionController::RoutingError do
+    render json: { error: 'bad route' }, status: :not_found
+  end
 end
