@@ -39,6 +39,8 @@ RSpec.describe 'Users', type: :request do
     }
   end
 
+  let(:a_jwt_token) { a_string_matching(/.+\..+\..+/) }
+
   describe 'POST /users' do
     context 'with valid parameters' do
       it 'Signs up and renders a successful response' do
@@ -47,7 +49,7 @@ RSpec.describe 'Users', type: :request do
         expect(response).to be_successful
         expect(json_body).to match(
           'data' => {
-            'token' => a_string_matching(/.+\..+\..+/)
+            'token' => a_jwt_token
           }
         )
       end
