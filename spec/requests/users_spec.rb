@@ -41,16 +41,34 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST /users' do
     context 'with valid parameters' do
-      it 'renders a successful response' do
+      it 'Signs up and renders a successful response' do
         post user_registration_url, params: { registration: valid_registration_attributes }
+        json_body = JSON.parse(response.body)
         expect(response).to be_successful
+        expect(json_body).to match(
+          'data' => {
+            'token' => a_string_matching(/.+\..+\..+/)
+          }
+        )
       end
     end
 
     context 'with non-valid parameters' do
       it 'renders an error response' do
         post user_registration_url, params: { registration: invalid_registration_attributes }
-        expect(response).to_not be_successful
+        json_body = JSON.parse(response.body)
+
+        expect(response).to have_http_status :unprocessable_entity
+        expect(json_body).to match(
+          'error' => {
+            'message' => 'Registration failed!',
+            'details' => {
+              'email or password' => [
+                'is invalid'
+              ]
+            }
+          }
+        )
       end
     end
   end
