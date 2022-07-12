@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
     if @topic.save
       render json: { data: @topic }, status: :created
     else
-      render json: { error: create_error('Topic create failed!', @topic.errors) }, status: :unprocessable_entity
+      render json: { error: create_error('Topic create failed!', details: @topic.errors) }, status: :unprocessable_entity
     end
   end
 
