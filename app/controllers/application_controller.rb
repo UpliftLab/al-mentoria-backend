@@ -19,14 +19,14 @@ class ApplicationController < ActionController::API
                                Rails.application.secrets.secret_key_base).first
       @current_user_id = jwt_payload['id']
     rescue JWT::ExpiredSignature
-      render json: { error: 'Token expired!' }, status: :unauthorized
+      render json: { error: create_error('Token expired!') }, status: :unauthorized
     rescue JWT::VerificationError, JWT::DecodeError
-      render json: { error: 'Verification of token failed!' }, status: :unauthorized
+      render json: { error: create_error('Verification of token failed!') }, status: :unauthorized
     end
   end
 
   def authenticate_user!(_ = {})
-    render json: { error: 'Must be logged in' }, status: :unauthorized unless signed_in?
+    render json: { error: create_error('Must be logged in') }, status: :unauthorized unless signed_in?
   end
 
   def current_user
@@ -45,10 +45,10 @@ class ApplicationController < ActionController::API
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    render json: { error: exception }, status: :unauthorized
+    render json: { error: create_error(exception) }, status: :unauthorized
   end
 
   rescue_from ActiveRecord::RecordNotFound do
-    render json: { errors: ['Resource not found!'] }, status: :not_found
+    render json: { error: create_error('Resource not found!') }, status: :not_found
   end
 end
