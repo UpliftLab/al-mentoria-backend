@@ -15,8 +15,8 @@ RSpec.describe MentorTopicsController, type: :routing do
 
     it 'routes to #destroy' do
       expect(delete: '/mentors/1/topics/1').to route_to(
-                                                 'mentor_topics#destroy', mentor_id: '1', id: '1'
-                                               )
+        'mentor_topics#destroy', mentor_id: '1', id: '1'
+      )
     end
   end
 end
