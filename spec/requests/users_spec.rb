@@ -77,16 +77,37 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST /users/sign_in' do
     context 'with valid parameters' do
-      it 'renders a successful response' do
+      it 'Logins and renders a successful response' do
         post user_session_url, params: { session: valid_session_attributes }
+        json_body = JSON.parse(response.body)
+
         expect(response).to be_successful
+        expect(json_body).to match(
+          'data' => {
+            'token' => a_jwt_token,
+            'name' => be_an_instance_of(String),
+            'role' => be_an_instance_of(String)
+          }
+        )
       end
     end
 
     context 'with non-valid parameters' do
       it 'renders an error response' do
         post user_session_url, params: { session: invalid_session_attributes }
-        expect(response).to_not be_successful
+        json_body = JSON.parse(response.body)
+
+        expect(response).to have_http_status :unprocessable_entity
+        expect(json_body).to match(
+          'error' => {
+            'message' => 'Login failed!',
+            'details' => {
+              'email or password' => [
+                'is invalid'
+              ]
+            }
+          }
+        )
       end
     end
   end
