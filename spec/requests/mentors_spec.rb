@@ -102,11 +102,16 @@ RSpec.describe '/mentors', type: :request do
           headers: valid_headers,
           as: :json
         )
-        json_response = JSON.parse(response.body)
+        json_body = JSON.parse(response.body)
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
-        expect(json_response).to have_key('data')
-        expect(json_response['data']).to include('name' => valid_attributes[:name])
+        expect(json_body).to match(
+          'data' => include(
+            'name' => valid_attributes[:name],
+            'bio' => valid_attributes[:bio],
+            'photo' => valid_attributes[:photo]
+          )
+        )
       end
     end
 
