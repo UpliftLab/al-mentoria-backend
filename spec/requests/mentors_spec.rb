@@ -51,9 +51,10 @@ RSpec.describe '/mentors', type: :request do
   describe 'GET /index' do
     it 'renders a successful response with list of mentors' do
       get mentors_url, headers: valid_headers
-      expect(response.body).to include 'Mostafa'
-      expect(response.body).to include 'Awais'
-      expect(response.body).to include 'Ammar'
+      json_response = JSON.parse(response.body)
+      expect(json_response).to have_key('data')
+      expect(json_response['data']).to be_an Array
+      expect(response.body).to include('Mostafa', 'Awais', 'Ammar')
     end
   end
 
@@ -61,14 +62,27 @@ RSpec.describe '/mentors', type: :request do
     it 'renders a successful response with a relevant resource' do
       mentor = Mentor.last
       get mentor_url(mentor)
+      json_body = JSON.parse(response.body)
       expect(response).to be_successful
-      expect(response.body).to include mentor.name
+      expect(json_body).to match(
+        'data' => include(
+          'name' => mentor.name,
+          'bio' => mentor.bio,
+          'photo' => mentor.photo
+        )
+      )
     end
 
     it 'gives 404 error for non-existing mentor' do
       id = Mentor.last.id + 10
       get mentor_url(id)
+      json_body = JSON.parse(response.body)
       expect(response).to have_http_status(:not_found)
+      expect(json_body).to match(
+        'error' => include(
+          'message' => 'Resource not found!'
+        )
+      )
     end
   end
 
@@ -82,10 +96,22 @@ RSpec.describe '/mentors', type: :request do
       end
 
       it 'renders a JSON response with the new mentor' do
-        post mentors_url,
-             params: { mentor: valid_attributes }, headers: valid_headers, as: :json
+        post(
+          mentors_url,
+          params: { mentor: valid_attributes },
+          headers: valid_headers,
+          as: :json
+        )
+        json_body = JSON.parse(response.body)
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
+        expect(json_body).to match(
+          'data' => include(
+            'name' => valid_attributes[:name],
+            'bio' => valid_attributes[:bio],
+            'photo' => valid_attributes[:photo]
+          )
+        )
       end
     end
 

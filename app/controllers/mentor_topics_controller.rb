@@ -8,16 +8,21 @@ class MentorTopicsController < ApplicationController
   def index
     @mentor_topics = @mentor.mentor_topics.as_json(include: %i[mentor topic])
 
-    render json: @mentor_topics
+    render json: { data: @mentor_topics }
   end
 
   def create
     @mentor_topic = MentorTopic.new(mentor_topic_params)
 
     if @mentor_topic.save
-      render json: @mentor_topic, status: :created
+      render json: { data: @mentor_topic }, status: :created
     else
-      render json: @mentor_topic.errors, status: :unprocessable_entity
+      render json: {
+        error: create_error(
+          'Adding topic for the mentor failed!',
+          details: @mentor_topic.errors
+        )
+      }, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +30,7 @@ class MentorTopicsController < ApplicationController
     if @mentor_topic.nil?
       render status: :not_found
     elsif !@mentor_topic.reservations.empty?
-      render status: :conflict
+      render json: { error: 'There are reservations for this topic!' }, status: :conflict
     else
       @mentor_topic.destroy
       render status: :no_content

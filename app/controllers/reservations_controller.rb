@@ -19,16 +19,16 @@ class ReservationsController < ApplicationController
         }
       }
     )
-    render json: @reservations
+    render json: { data: @reservations }
   end
 
   # POST /reservations
   def create
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
-      render json: @reservation, status: :created, location: @reservation
+      render json: { data: @reservation }, status: :created, location: @reservation
     else
-      render json: @reservation.errors, status: :unprocessable_entity
+      render json: { error: create_error('', details: @reservation.errors) }, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class ReservationsController < ApplicationController
       if @reservation.destroy
         render status: :no_content
       else
-        render json: @reservation.errors, status: :unprocessable_entity
+        render json: { error: create_error('', details: @reservation.errors) }, status: :unprocessable_entity
       end
     else
       render status: :not_found

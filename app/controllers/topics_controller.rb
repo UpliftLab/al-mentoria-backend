@@ -7,7 +7,7 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all.as_json(only: %i[id label icon])
 
-    render json: @topics
+    render json: { data: @topics }
   end
 
   # POST /topics
@@ -15,20 +15,21 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     if @topic.save
-      render json: @topic, status: :created
+      render json: { data: @topic }, status: :created
     else
-      render json: { error: @topic.errors }, status: :unprocessable_entity
+      render json: { error: create_error('Topic create failed!', details: @topic.errors) },
+             status: :unprocessable_entity
     end
   end
 
   # DELETE /topics/1
   def destroy
     if @topic.reservations.present?
-      render json: { error: 'There are reservations for this topic!' }, status: :conflict
+      render json: { error: create_error('There are reservations for this topic!') }, status: :conflict
     elsif @topic.destroy
       render status: :no_content
     else
-      render json: { error: "Couldn't delete!" }, status: :unprocessable_entity
+      render json: { error: create_error("Couldn't delete!") }, status: :unprocessable_entity
     end
   end
 
