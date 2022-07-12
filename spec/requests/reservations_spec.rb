@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe '/reservations', type: :request do
   before do
+    load 'db/seeds.rb'
     @user = User.second
     @mentor_topic = MentorTopic.first
   end

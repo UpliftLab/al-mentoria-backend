@@ -1,0 +1,349 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/mentors/{mentor_id}/topics":
+    parameters:
+    - name: mentor_id
+      in: path
+      description: Mentor id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list topics of a specific mentor
+      tags:
+      - Mentor topics
+      security:
+      - bearerAuth: {}
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not authorized
+    post:
+      summary: add a topic for a mentor
+      tags:
+      - Mentor topics
+      security:
+      - bearerAuth: {}
+      parameters: []
+      responses:
+        '201':
+          description: Mentor topic saved successfully
+        '422':
+          description: Mentor topic couldn't be saved
+        '401':
+          description: Not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mentor_id:
+                  type: integer
+                topic_id:
+                  type: integer
+                rating:
+                  type: integer
+              required:
+              - mentor_id
+              - topic_id
+              - rating
+  "/mentors/{mentor_id}/topics/{topic_id}":
+    parameters:
+    - name: mentor_id
+      in: path
+      description: Mentor id
+      required: true
+      schema:
+        type: integer
+    - name: topic_id
+      in: path
+      description: Topic id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: delete a topic for a mentor
+      tags:
+      - Mentor topics
+      security:
+      - bearerAuth: {}
+      responses:
+        '204':
+          description: Mentor topic got removed successfully
+        '409':
+          description: Mentor has a reservation with this topic
+        '401':
+          description: Not authorized
+        '404':
+          description: Mentor topic not found
+  "/mentors":
+    get:
+      summary: list mentors
+      tags:
+      - Mentors
+      security:
+      - bearerAuth: {}
+      responses:
+        '200':
+          description: Successful
+    post:
+      summary: add a mentor
+      tags:
+      - Mentors
+      security:
+      - bearerAuth: {}
+      parameters: []
+      responses:
+        '201':
+          description: Mentor got saved successfully
+        '422':
+          description: Mentor couldn't be saved
+        '401':
+          description: Not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                bio:
+                  type: string
+                photo:
+                  type: string
+              required:
+              - name
+              - bio
+              - photo
+  "/mentors/{mentor_id}":
+    parameters:
+    - name: mentor_id
+      in: path
+      description: Mentor id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: delete a topic for a mentor
+      tags:
+      - Mentors
+      security:
+      - bearerAuth: {}
+      responses:
+        '204':
+          description: Mentor got removed successfully
+        '409':
+          description: There are reservations for this mentor
+        '401':
+          description: Not authorized
+        '404':
+          description: Mentor not found
+    get:
+      summary: get a mentor
+      tags:
+      - Mentors
+      security:
+      - bearerAuth: {}
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not authorized
+        '404':
+          description: Mentor not found
+  "/reservations":
+    get:
+      summary: list reservations
+      tags:
+      - Reservations
+      security:
+      - bearerAuth: {}
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not authorized
+    post:
+      summary: create reservation
+      tags:
+      - Reservations
+      security:
+      - bearerAuth: {}
+      parameters: []
+      responses:
+        '201':
+          description: Reservation got created successfully
+        '401':
+          description: Not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                mentor_topic_id:
+                  type: integer
+                date:
+                  type: string
+              required:
+              - user_id
+              - mentor_topic_id
+              - date
+  "/reservations/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: delete reservation
+      tags:
+      - Reservations
+      security:
+      - bearerAuth: {}
+      responses:
+        '204':
+          description: Reservation got deleted successfully
+        '401':
+          description: Not authorized
+        '404':
+          description: Reservation not found
+  "/topics":
+    get:
+      summary: list topics
+      tags:
+      - Topics
+      security:
+      - bearerAuth: {}
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not authorized
+    post:
+      summary: add a topic
+      tags:
+      - Topics
+      security:
+      - bearerAuth: {}
+      parameters: []
+      responses:
+        '201':
+          description: Topic saved successfully
+        '422':
+          description: Topic couldn't be saved
+        '401':
+          description: Not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: string
+                icon:
+                  type: string
+              required:
+              - label
+              - icon
+  "/topics/{topic_id}":
+    parameters:
+    - name: topic_id
+      in: path
+      description: Topic id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: delete a topic for a mentor
+      tags:
+      - Topics
+      security:
+      - bearerAuth: {}
+      responses:
+        '204':
+          description: Mentor topic got removed successfully
+        '409':
+          description: There are reservations for this topic
+        '401':
+          description: Not authorized
+        '404':
+          description: Topic was not found
+        '422':
+          description: Topic was not deleted
+  "/users/sign_in":
+    post:
+      summary: sign-in
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: Successful
+        '422':
+          description: One of the parameters is wrong
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/users":
+    post:
+      summary: sign-up
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '422':
+          description: One of the parameters is wrong
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      in: header
+      name: Authorization
+security:
+  bearerAuth: []

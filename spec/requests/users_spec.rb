@@ -1,7 +1,73 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  describe 'GET /index' do
-    pending "add some examples (or delete) #{__FILE__}"
+  before(:each) do
+    load 'db/seeds.rb'
+    @admin_user = User.first
+    @basic_user = User.last
+  end
+  # This should return the minimal set of attributes required to create a valid
+  # User. As you add validations to User, be sure to
+  # adjust the attributes here as well.
+  let(:valid_registration_attributes) do
+    {
+      name: 'Kaladin',
+      email: 'kaladin@rochar.cos',
+      password: '123123'
+    }
+  end
+
+  let(:invalid_registration_attributes) do
+    {
+      name: 'Hoid',
+      email: '',
+      password: '123123'
+    }
+  end
+
+  let(:valid_session_attributes) do
+    {
+      email: 'soufiane@nomail.com',
+      password: '123123'
+    }
+  end
+
+  let(:invalid_session_attributes) do
+    {
+      email: '',
+      password: '123123'
+    }
+  end
+
+  describe 'POST /users' do
+    context 'with valid parameters' do
+      it 'renders a successful response' do
+        post user_registration_url, params: { registration: valid_registration_attributes }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with non-valid parameters' do
+      it 'renders an error response' do
+        post user_registration_url, params: { registration: invalid_registration_attributes }
+        expect(response).to_not be_successful
+      end
+    end
+  end
+
+  describe 'POST /users/sign_in' do
+    context 'with valid parameters' do
+      it 'renders a successful response' do
+        post user_session_url, params: { session: valid_session_attributes }
+        expect(response).to be_successful
+      end
+    end
+
+    context 'with non-valid parameters' do
+      it 'renders an error response' do
+        post user_session_url, params: { session: invalid_session_attributes }
+        expect(response).to_not be_successful
+      end
+    end
   end
 end

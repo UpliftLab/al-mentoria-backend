@@ -18,6 +18,7 @@ RSpec.describe '/mentor_topics', type: :request do
   # adjust the attributes here as well.
 
   before do
+    load 'db/seeds.rb'
     @user = User.first
     @mentor = Mentor.first
     @topic = Topic.first
