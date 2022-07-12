@@ -130,7 +130,7 @@ RSpec.describe '/mentors/{id}/topics', type: :request do
 
       response(404, 'Mentor topic not found') do
         let(:mentor_id) { '2' }
-        let(:topic_id) { '1' }
+        let(:topic_id) { '7' }
         let(:Authorization) { "Bearer #{@user.generate_jwt}" }
         after do |example|
           example.metadata[:response][:content] = {

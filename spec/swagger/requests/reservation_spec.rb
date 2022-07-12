@@ -74,7 +74,7 @@ RSpec.describe '/reservations', type: :request do
       tags 'Reservations'
       security [bearerAuth: {}]
       response(204, 'Reservation got deleted successfully') do
-        let(:id) { '123' }
+        let(:id) { '1' }
         let(:Authorization) { "Bearer #{@user.generate_jwt}" }
         after do |example|
           example.metadata[:response][:content] = {
@@ -87,6 +87,19 @@ RSpec.describe '/reservations', type: :request do
       end
 
       response(401, 'Not authorized') do
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+
+      response(404, 'Reservation not found') do
+        let(:id) { '123' }
+        let(:Authorization) { "Bearer #{@user.generate_jwt}" }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

@@ -92,8 +92,6 @@ paths:
       responses:
         '200':
           description: Successful
-        '401':
-          description: Not authorized
     post:
       summary: add a mentor
       tags:
@@ -219,6 +217,8 @@ paths:
           description: Reservation got deleted successfully
         '401':
           description: Not authorized
+        '404':
+          description: Reservation not found
   "/topics":
     get:
       summary: list topics
