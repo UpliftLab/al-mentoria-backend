@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   before(:each) do
-    # load 'db/seeds.rb'
+    load 'db/seeds.rb'
     @admin_user = User.first
     @basic_user = User.last
   end
