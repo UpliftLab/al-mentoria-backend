@@ -137,5 +137,12 @@ RSpec.describe 'Users', type: :request do
         )
       end
     end
+
+    context 'with no headers' do
+      it 'Responds user unauthorized' do
+        get users_me_url
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
   end
 end
