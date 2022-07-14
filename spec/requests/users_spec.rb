@@ -111,4 +111,51 @@ RSpec.describe 'Users', type: :request do
       end
     end
   end
+
+  before do
+    @token = @basic_user.generate_jwt
+  end
+
+  let(:valid_headers) do
+    {
+      Authorization: "Bearer #{@token}"
+    }
+  end
+
+  let(:invalid_headers) do
+    {
+      Authorization: 'Bearer any_invalid_token'
+    }
+  end
+
+  describe 'GET /users/me' do
+    context 'with valid headers' do
+      it 'Renders a json response with token and user data' do
+        get users_me_url, headers: valid_headers
+        expect(response).to have_http_status(:ok)
+        json_body = JSON.parse(response.body)
+        expect(json_body).to match(
+          'data' => {
+            'token' => @token,
+            'name' => @basic_user.name,
+            'role' => @basic_user.role
+          }
+        )
+      end
+    end
+
+    context 'with no headers' do
+      it 'Responds user unauthorized' do
+        get users_me_url
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'with invalid authorization token' do
+      it 'Responds user unauthorized' do
+        get users_me_url, headers: invalid_headers
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end

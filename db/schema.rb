@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_143349) do
     t.string "photo"
     t.string "name"
     t.string "bio"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_mentors_on_user_id"
