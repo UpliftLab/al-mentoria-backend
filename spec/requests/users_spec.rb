@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   before(:each) do
-    load 'db/seeds.rb'
+    # load 'db/seeds.rb'
     @admin_user = User.first
     @basic_user = User.last
   end
@@ -106,6 +106,33 @@ RSpec.describe 'Users', type: :request do
                 'is invalid'
               ]
             }
+          }
+        )
+      end
+    end
+  end
+
+  before do
+    @token = @basic_user.generate_jwt
+  end
+
+  let(:valid_headers) do
+    {
+      Authorization: "Bearer #{@token}"
+    }
+  end
+
+  describe 'GET /users/me' do
+    context 'with valid headers' do
+      it 'Renders a json response with token and user data' do
+        get users_me_url, headers: valid_headers
+        expect(response).to have_http_status(:ok)
+        json_body = JSON.parse(response.body)
+        expect(json_body).to match(
+          'data' => {
+            'token' => @token,
+            'name' => @basic_user.name,
+            'role' => @basic_user.role
           }
         )
       end
