@@ -6,7 +6,7 @@ class MentorsController < ApplicationController
 
   # GET /mentors
   def index
-    @mentors = Mentor.all.as_json(
+    @mentors = Mentor.all.includes(mentor_topics: [:topic]).as_json(
       include: {
         mentor_topics: { include: :topic }
       }
