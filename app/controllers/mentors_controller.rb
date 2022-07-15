@@ -6,12 +6,12 @@ class MentorsController < ApplicationController
 
   # GET /mentors
   def index
-    @mentors = Mentor.all
+    @mentors = Mentor.all.as_json(include: :mentor_topics)
 
     render json: { data: @mentors }
   end
 
-  # GET /mentors/1
+  # GET /mentors/1a
   def show
     render json: { data: @mentor }
   end
