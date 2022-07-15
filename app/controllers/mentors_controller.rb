@@ -2,17 +2,26 @@ class MentorsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   load_and_authorize_resource except: %i[index show]
 
-  before_action :set_mentor, only: %i[show destroy]
+  before_action :set_mentor, only: %i[destroy]
 
   # GET /mentors
   def index
-    @mentors = Mentor.all
+    @mentors = Mentor.all.includes(mentor_topics: [:topic]).as_json(
+      include: {
+        mentor_topics: { include: :topic }
+      }
+    )
 
     render json: { data: @mentors }
   end
 
   # GET /mentors/1
   def show
+    @mentor = Mentor.includes(mentor_topics: [:topic]).find(params[:id]).as_json(
+      include: {
+        mentor_topics: { include: :topic }
+      }
+    )
     render json: { data: @mentor }
   end
 
