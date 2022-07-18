@@ -1,0 +1,25 @@
+name: Rspec
+
+on: pull_request
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  rspec:
+    name: Rspec
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.1.x
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '11'
+      - name: Dependencies installation
+        run: bundle install
+      - name: Db-setup
+        run: rails db:create && rails db:migrate
+      - name: Rspec Report
+        run: rspec --force-color
