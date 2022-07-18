@@ -1,0 +1,43 @@
+name: Rspec
+
+on: pull_request
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  rspec:
+    name: Rspec
+    runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: al_mentoria_backend_test
+        ports:
+          - 5432:5432
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+      PG_DB_USERNAME: postgres
+      PG_DB_PASSWORD: ""
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.1.x
+      - name: Dependencies installation
+        run: bundle install
+      - name: Create Database
+        run: ./bin/rails db:create
+      - name: Run Migration
+        run: ./bin/rails db:migrate
+      - name: Rspec Report
+        run: rspec --force-color
