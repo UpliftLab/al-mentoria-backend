@@ -4,9 +4,7 @@ RSpec.describe '/mentors', type: :request do
   path '/mentors' do
     get('list mentors') do
       tags 'Mentors'
-      security [bearerAuth: {}]
       response(200, 'Successful') do
-        let(:Authorization) { "Bearer #{@user.generate_jwt}" }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -132,10 +130,8 @@ RSpec.describe '/mentors', type: :request do
 
     get('get a mentor') do
       tags 'Mentors'
-      security [bearerAuth: {}]
       response(200, 'Successful') do
         let(:mentor_id) { '2' }
-        let(:Authorization) { "Bearer #{@user.generate_jwt}" }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
