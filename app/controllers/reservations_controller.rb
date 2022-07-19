@@ -5,7 +5,7 @@ class ReservationsController < ApplicationController
 
   # GET /reservations
   def index
-    @reservations = current_user.reservations.as_json(
+    @reservations = current_user.reservations.includes(:mentor, :user, :topic).as_json(
       only: %i[id date],
       include: {
         mentor: {
