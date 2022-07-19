@@ -87,8 +87,6 @@ paths:
       summary: list mentors
       tags:
       - Mentors
-      security:
-      - bearerAuth: {}
       responses:
         '200':
           description: Successful
@@ -149,8 +147,6 @@ paths:
       summary: get a mentor
       tags:
       - Mentors
-      security:
-      - bearerAuth: {}
       responses:
         '200':
           description: Successful
@@ -188,8 +184,6 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
-                  type: integer
                 mentor_topic_id:
                   type: integer
                 date:

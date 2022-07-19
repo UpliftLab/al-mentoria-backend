@@ -36,7 +36,6 @@ RSpec.describe '/reservations', type: :request do
       parameter name: :reservation, in: :body, schema: {
         type: :object,
         properties: {
-          user_id: { type: :integer },
           mentor_topic_id: { type: :integer },
           date: { type: :string }
         },
