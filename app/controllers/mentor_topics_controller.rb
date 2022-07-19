@@ -17,12 +17,15 @@ class MentorTopicsController < ApplicationController
     if @mentor_topic.save
       render json: { data: @mentor_topic }, status: :created
     else
-      render json: {
-               error: create_error(
-                 'Adding topic for the mentor failed!',
-                 details: @mentor_topic.errors
-               )
-             }, status: :unprocessable_entity
+      render(
+        json: {
+          error: create_error(
+            'Adding topic for the mentor failed!',
+            details: @mentor_topic.errors
+          )
+        },
+        status: :unprocessable_entity
+      )
     end
   end
 
