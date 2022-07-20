@@ -14,17 +14,7 @@ class MentorTopicsController < ApplicationController
   def create
     @mentor_topic = MentorTopic.new(mentor_topic_params)
 
-    if @mentor.mentor_topics.exists?(topic: @mentor_topic.topic)
-      render(
-        json: {
-          error: create_error(
-            'Topic already exists for this mentor'
-          )
-        },
-        status: :conflict
-      )
-      return
-    end
+    return if mentor_topic_exists?(@mentor_topic)
 
     if @mentor_topic.save
       render json: { data: @mentor_topic }, status: :created
@@ -65,5 +55,17 @@ class MentorTopicsController < ApplicationController
 
   def mentor_topic_params
     params.permit(:rating, :topic_id, :mentor_id)
+  end
+
+  def mentor_topic_exists?(mentor_topic)
+    if @mentor.mentor_topics.exists?(topic: mentor_topic.topic)
+      render(
+        json: { error: create_error('Topic already exists for this mentor') },
+        status: :conflict
+      )
+      true
+    else
+      false
+    end
   end
 end
