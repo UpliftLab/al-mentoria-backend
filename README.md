@@ -20,7 +20,7 @@
 
 <div id="header" align="center">
   <a href="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/almentoria-full-logo.svg">
-    <img src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/almentoria-full-logo.svg" alt="Logo" width="80" height="80">
+    <img src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/almentoria-full-logo.svg" alt="Logo" width="200" height="200">
   </a>
   <p align="center">
     <br />
@@ -215,6 +215,6 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the **A-GPL** License. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the **AGPL** License. See [`LICENSE`](./LICENSE) for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
