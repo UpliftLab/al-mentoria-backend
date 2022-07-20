@@ -28,7 +28,7 @@ swagger_config = {
   components: {
     securitySchemes: {
       bearerAuth: {
-        type: 'https',
+        type: 'http',
         scheme: 'bearer',
         in: 'header',
         name: 'Authorization'
