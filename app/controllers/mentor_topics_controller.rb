@@ -6,7 +6,7 @@ class MentorTopicsController < ApplicationController
   before_action :set_mentor_topic, only: %i[destroy]
 
   def index
-    @mentor_topics = @mentor.mentor_topics.as_json(include: %i[mentor topic])
+    @mentor_topics = @mentor.mentor_topics.includes(:mentor, :topic).as_json(include: %i[mentor topic])
 
     render json: { data: @mentor_topics }
   end
