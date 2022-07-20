@@ -66,12 +66,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-> **al mentoria** is a virtual space.
+> **Al Mentoria** is a virtual space to connect with mentors that can help you with your technical as well as behavioural problems. If you are stuck somewhere and need a second look at things, make a reservation now.
 
 ### ERD diagram
 <img alt="ERD diagram" src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/erd.png">
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ### Built With
@@ -84,9 +82,6 @@
 <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
 <br></br>
 </ul>
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -138,16 +133,11 @@ To get a local copy up and running follow these simple example steps.
 9. Enjoy
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 _For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- CONTRIBUTING -->
@@ -166,9 +156,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- AUTHORS -->
@@ -197,9 +184,6 @@ Don't forget to give the project a star! Thanks again!
 - Website: [Coding Fries](https://codingfries.com)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/awais-amjed)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
@@ -209,12 +193,7 @@ Don't forget to give the project a star! Thanks again!
 * [Img Shields](https://shields.io)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the **AGPL** License. See [`LICENSE`](./LICENSE) for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
