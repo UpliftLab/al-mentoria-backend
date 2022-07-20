@@ -20,6 +20,6 @@ jobs:
       - name: Dependencies installation
         run: bundle install
       - name: Db-setup
-        run: rails db:create && rails db:migrate
+        run: rails db:migrate
       - name: Rspec Report
         run: rspec --force-color
