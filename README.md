@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-> **Al Mentoria** is a virtual space to connect with mentors that can help you with your technical as well as behavioural problems. If you are stuck somewhere and need a second look at things, make a reservation now.
+> **Al Mentoria** is a virtual space to connect with mentors that can help you with your technical as well as behavioral issues. If you are stuck somewhere and need a second look at things, make a reservation now.
 
 ### ERD diagram
 <img alt="ERD diagram" src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/erd.png">
@@ -196,4 +196,4 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the **AGPL** License. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the **A-GPL** License. See [`LICENSE`](./LICENSE) for more information.
