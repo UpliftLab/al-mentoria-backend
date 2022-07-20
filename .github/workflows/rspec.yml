@@ -9,17 +9,25 @@ jobs:
   rspec:
     name: Rspec
     runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:10.8
+        ports:
+          - 5432:5432
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: 3.1.x
-      - uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '11'
       - name: Dependencies installation
         run: bundle install
-      - name: Db-setup
-        run: rails db:migrate
+      - name: Run Migration
+        run: ./bin/rails db:migrate
       - name: Rspec Report
         run: rspec --force-color
