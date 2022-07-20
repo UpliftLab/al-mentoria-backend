@@ -63,7 +63,6 @@
 
 <br />
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 > **Al Mentoria** is a virtual space to connect with mentors that can help you with your technical as well as behavioral issues. If you are stuck somewhere and need a second look at things, make a reservation now.
@@ -71,9 +70,7 @@
 ### ERD diagram
 <img alt="ERD diagram" src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/erd.png">
 
-
 ### Built With
-
 
 <ul style="display: flex; gap: 6px; justify-content: center">
 <img src="https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"/>
@@ -83,8 +80,6 @@
 <br></br>
 </ul>
 
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -93,7 +88,6 @@ To get a local copy up and running follow these simple example steps.
 
 - POSTGRESQL *~> 14.x*
 - Ruby *~> 3.1.x*
-
 
 ### Installation
 
@@ -132,23 +126,18 @@ To get a local copy up and running follow these simple example steps.
    ```
 9. Enjoy
 
-
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
 _For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
 
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 Please, take a look at [open issues](https://github.com/UpliftLab/al-mentoria-backend/issues) for a full list of proposed features (and known issues).
 
-
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -158,7 +147,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 
-<!-- AUTHORS -->
 ##  Authors
 
 👤 **Soufiane Boursen**
@@ -175,17 +163,15 @@ Don't forget to give the project a star! Thanks again!
 
 👤 **Mostafa Ahangarha**
 
-- GitHub: [@Mostafa](https://github.com/ahangarha)
-- LinkedIn: [Mostafa](https://www.linkedin.com/in/ahangarha/)
-- Twitter: [ahangarha](https://twitter.com/ahangarha)
+- GitHub: [ahangarha](https://github.com/ahangarha)
+- LinkedIn: [ahangarha](https://www.linkedin.com/in/ahangarha/)
+- Twitter: [@ahangarha](https://twitter.com/ahangarha)
 
 👤 **Awais Amjed**
 - GitHub: [Awais Amjed](https://github.com/awais-amjed)
 - Website: [Coding Fries](https://codingfries.com)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/awais-amjed)
 
-
-<!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
 * Original design by [Murat Korkmaz](https://www.behance.net/muratk).
@@ -193,7 +179,6 @@ Don't forget to give the project a star! Thanks again!
 * [Img Shields](https://shields.io)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
-<!-- LICENSE -->
 ## License
 
-Distributed under the **A-GPL** License. See [`LICENSE`](./LICENSE) for more information.
+Distributed under the **AGPL** License. See [`LICENSE`](./LICENSE) for more information.
