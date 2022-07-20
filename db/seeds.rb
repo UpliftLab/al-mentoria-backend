@@ -57,27 +57,27 @@ topics = Topic.create!([
 mentors = Mentor.create!([
   {
     user: User.first,
-    name: "Da Rock",
-    photo: "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-    bio: "I am a mentor from mars",
+    name: "Soufiane Boursen",
+    photo: "https://twitter.com/sboursen_dev/photo",
+    bio: "Full-stack software developer. PostgreSQL, Ruby on Rails, React, Tailwind. Machine learning enthusiast. R&D process engineer. Open to new opportunities.",
   },
   {
     user: User.first,
-    name: "Awais",
-    photo: "http://m.gettywallpapers.com/wp-content/uploads/2020/04/Cute-iPhone-Background.jpg",
-    bio: "I am a mentor from Da void",
+    name: "Awais Amjed",
+    photo: "https://avatars.githubusercontent.com/u/73714615",
+    bio: "Full-stack software developer, React & Redux enthusiast, part-time Freelancer, Love Flutter, Music, Gaming, and Movies. Open to new opportunities!",
   },
   {
     user: User.first,
-    name: "Mostafa",
-    photo: "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-    bio: "I am a mentor from mars",
+    name: "Mostafa Ahangarha",
+    photo: "https://avatars.githubusercontent.com/u/11241315",
+    bio: "Full-Stack Developer | React, Rails, Laravel | Software Freedom advocate | Looking for new opportunities.",
   },
   {
     user: User.first,
-    name: "Ammar",
-    photo: "https://avatars.githubusercontent.com/u/20567503?s=400&u=e1b144198e38c032096f11917b2317f66475700f&v=4",
-    bio: "I am a mentor from the multiverse",
+    name: "Ammar Hamlaoui",
+    photo: "https://avatars.githubusercontent.com/u/20567503",
+    bio: "Software Engineer & Full-Stack Web Developer | React | JavaScript | Git | SQL, currently looking for opportunities.",
   },
 ])
 

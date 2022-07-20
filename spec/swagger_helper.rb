@@ -9,9 +9,17 @@ swagger_config = {
   paths: {},
   servers: [
     {
-      url: 'http://{defaultHost}',
+      url: 'https://{heroku}',
       variables: {
-        defaultHost: {
+        heroku: {
+          default: 'almentoria-api.herokuapp.com'
+        }
+      }
+    },
+    {
+      url: 'http://{localhost}',
+      variables: {
+        localhost: {
           default: 'localhost:3000'
         }
       }
@@ -20,7 +28,7 @@ swagger_config = {
   components: {
     securitySchemes: {
       bearerAuth: {
-        type: 'http',
+        type: 'https',
         scheme: 'bearer',
         in: 'header',
         name: 'Authorization'
