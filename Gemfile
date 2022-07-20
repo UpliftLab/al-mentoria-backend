@@ -7,7 +7,8 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'rack-cors', '~> 1.1'
 
-gem 'rswag', '~> 2.5', '>= 2.5.1'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 gem 'cancancan', '~> 3.4.0'
 
@@ -54,6 +55,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
   gem 'rspec-rails', '~> 6.0.0.rc1'
+  gem 'rswag-specs'
 end
 
 group :development do
