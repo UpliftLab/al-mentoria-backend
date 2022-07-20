@@ -24,14 +24,14 @@
   </a>
   <p align="center">
     <br />
-    <a href="https://apidocs"><strong>Explore the API docs »</strong></a>
+    <a href="https://almentoria-api.herokuapp.com/api-docs/index.html"><strong>Explore the API docs »</strong></a>
     <br />
     <br />
-    <a href="./todo">View Demo</a>
+    <a href="https://github.com/UpliftLab/al-mentoria-backend">View Demo</a>
     ·
-    <a href="./todo">Report Bug</a>
+    <a href="https://github.com/UpliftLab/al-mentoria-backend/issues">Report Bug</a>
     ·
-    <a href="./todo">Request Feature</a>
+    <a href="https://github.com/UpliftLab/al-mentoria-backend/issues">Request Feature</a>
   </p>
 </div>
 
@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-> **al mentoria** is a mentorship app. After creating an account, it allows to add your daily transactions given some categories. It also allows you add your own categories and list all the transactions belonging to that particular category.
+> **al mentoria** is a mentorship app. to-do
 
 ### ERD diagram
 <img alt="ERD diagram" src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/erd.png">
@@ -203,7 +203,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* Original design by [Murat Korkmaz ](https://www.behance.net/muratk).
+* Original design by [Murat Korkmaz](https://www.behance.net/muratk).
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * [React Icons](https://react-icons.github.io/react-icons/search)
