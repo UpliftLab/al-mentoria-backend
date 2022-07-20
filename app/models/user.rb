@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 250 }
 
   def generate_jwt
-    JWT.encode({ id:, exp: 1.month.from_now.to_i }, Rails.application.secrets.secret_key_base)
+    JWT.encode({ id:, exp: 1.month.from_now.to_i }, Rails.application.secret_key_base)
   end
 
   def is?(requested_role)
