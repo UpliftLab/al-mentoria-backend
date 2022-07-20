@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-> **al mentoria** is a mentorship app. to-do
+> **al mentoria** is a virtual space.
 
 ### ERD diagram
 <img alt="ERD diagram" src="https://github.com/UpliftLab/al-mentoria-docs/blob/9fcf7f54b99a1c4264cbcfa5644e5526cf02b2a7/erd.png">
@@ -126,9 +126,10 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    rails db:seed
    ```
-7. Set up the environment variable (to-do):
-   ```sh
-   to-do
+7. Set the following the environment variables for database:
+   ```
+   PG_DB_USERNAME
+   PG_DB_PASSWORD
    ```
 8. Launch the server:
    ```sh
@@ -144,7 +145,7 @@ To get a local copy up and running follow these simple example steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://to-do)_
+_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
