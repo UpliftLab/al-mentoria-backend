@@ -14,6 +14,18 @@ class MentorTopicsController < ApplicationController
   def create
     @mentor_topic = MentorTopic.new(mentor_topic_params)
 
+    if @mentor.mentor_topics.exists?(topic: @mentor_topic.topic)
+      render(
+        json: {
+          error: create_error(
+            'Topic already exists for this mentor'
+          )
+        },
+        status: :conflict
+      )
+      return
+    end
+
     if @mentor_topic.save
       render json: { data: @mentor_topic }, status: :created
     else
