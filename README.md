@@ -103,23 +103,24 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    bundle install
    ```
-4. Create database:
-   ```sh
-   rails db:create
-   ```
-5. Run the migrations:
-   ```sh
-   rails db:migrate
-   ```
-6. Seed the database:
-   ```sh
-   rails db:seed
-   ```
-7. Set the following the environment variables for database:
+4. Set the following the environment variables for database:
    ```
    PG_DB_USERNAME
    PG_DB_PASSWORD
    ```
+5. Create database:
+   ```sh
+   rails db:create
+   ```
+6. Run the migrations:
+   ```sh
+   rails db:migrate
+   ```
+7. Seed the database:
+   ```sh
+   rails db:seed
+   ```
+
 8. Launch the server:
    ```sh
    rails s -p 8000
