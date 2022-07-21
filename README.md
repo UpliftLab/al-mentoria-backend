@@ -54,6 +54,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#kanban-board">Kanban board</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#authors">Authors</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -127,9 +128,26 @@ To get a local copy up and running follow these simple example steps.
    ```
 9. Enjoy
 
+
+<p align="right"><a href="#top">⬆️</a></p>
+
 ## Usage
 
 _For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
+
+## Kanban board
+
+👉 [Kanban board link](https://github.com/orgs/UpliftLab/projects/3)
+
+| Initial State | Final State |
+| -------------- | -----------|
+| <img src="https://user-images.githubusercontent.com/73714615/177792206-b6f6ffef-be70-4a55-bf19-2d77707d3bf1.png" alt="drawing" width="500"/> | <img src="https://user-images.githubusercontent.com/73714615/177792206-b6f6ffef-be70-4a55-bf19-2d77707d3bf1.png" alt="drawing" width="500"/> |
+
+👉 This project was authored by <a href="#authors">Four contributors</a> as described in the the Authors section bellow.
+
+👉 Please use this [link](https://github.com/UpliftLab/al-mentoria-frontend) to go to the front-end part of this project.
+
+<p align="right"><a href="#top">⬆️</a></p>
 
 ## Contributing
 
@@ -147,6 +165,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+<p align="right"><a href="#top">⬆️</a></p>
 
 ##  Authors
 
@@ -173,6 +192,8 @@ Don't forget to give the project a star! Thanks again!
 - Website: [Coding Fries](https://codingfries.com)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/awais-amjed)
 
+<p align="right"><a href="#top">⬆️</a></p>
+
 ## Acknowledgments
 
 * Original design by [Murat Korkmaz](https://www.behance.net/muratk).
@@ -180,6 +201,10 @@ Don't forget to give the project a star! Thanks again!
 * [Img Shields](https://shields.io)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
+<p align="right"><a href="#top">⬆️</a></p>
+
 ## License
 
 Distributed under the **AGPL** License. See [`LICENSE`](./LICENSE) for more information.
+
+<p align="right"><a href="#top">⬆️</a></p>
