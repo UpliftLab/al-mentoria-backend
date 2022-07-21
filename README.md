@@ -141,7 +141,7 @@ _For more Info on how to use the API, please refer to the [al mentoria API Docum
 
 | Initial State | Final State |
 | -------------- | -----------|
-| <img src="https://user-images.githubusercontent.com/73714615/177792206-b6f6ffef-be70-4a55-bf19-2d77707d3bf1.png" alt="drawing" width="500"/> | <img src="https://user-images.githubusercontent.com/73714615/177792206-b6f6ffef-be70-4a55-bf19-2d77707d3bf1.png" alt="drawing" width="500"/> |
+| <img src="https://user-images.githubusercontent.com/73714615/177792206-b6f6ffef-be70-4a55-bf19-2d77707d3bf1.png" alt="drawing" height="150"/> | <img src="https://user-images.githubusercontent.com/51741471/180237063-bf1ff25e-585f-4f07-bb2e-7ac77e535a3a.png" alt="drawing" height="150"/> |
 
 👉 This project was authored by <a href="#authors">Four contributors</a> as described in the the Authors section bellow.
 
