@@ -3,7 +3,7 @@
     <img alt="Microverse" src="https://img.shields.io/badge/-Microverse-blueviolet?style=flat-square">
   </a>
   <a href="./LICENSE">
-    <img alt="A-GPL Licensed" src="https://img.shields.io/badge/license-A--GPL-green">
+    <img alt="AGPL Licensed" src="https://img.shields.io/github/license/UpliftLab/al-mentoria-backend">
   </a>
   <a href="https://github.com/UpliftLab/al-mentoria-backend">
     <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/UpliftLab/al-mentoria-backend/dev?color=blue&style=flat-square">
