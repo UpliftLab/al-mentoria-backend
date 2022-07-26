@@ -24,7 +24,7 @@
   </a>
   <p align="center">
     <br />
-    <a href="https://almentoria-api.herokuapp.com/api-docs/index.html"><strong>Explore the API docs »</strong></a>
+    <a href="https://al-mentoria-api.herokuapp.com/api-docs/index.html"><strong>Explore the API docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/UpliftLab/al-mentoria-backend">View Demo</a>
@@ -133,7 +133,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
+_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://al-mentoria-api.herokuapp.com/api-docs/index.html)_
 
 ## Kanban board
 
