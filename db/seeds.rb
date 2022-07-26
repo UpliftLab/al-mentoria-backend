@@ -58,7 +58,7 @@ mentors = Mentor.create!([
   {
     user: User.first,
     name: "Soufiane Boursen",
-    photo: "https://twitter.com/sboursen_dev/photo",
+    photo: "https://pbs.twimg.com/profile_images/1478297563514249218/DpfRaGB2_400x400.jpg",
     bio: "Full-stack software developer. PostgreSQL, Ruby on Rails, React, Tailwind. Machine learning enthusiast. R&D process engineer. Open to new opportunities.",
   },
   {
