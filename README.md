@@ -24,7 +24,7 @@
   </a>
   <p align="center">
     <br />
-    <a href="https://almentoria-api.herokuapp.com/api-docs/index.html"><strong>Explore the API docs »</strong></a>
+    <a href="https://al-mentoria-api.herokuapp.com/api-docs"><strong>Explore the API docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/UpliftLab/al-mentoria-backend">View Demo</a>
