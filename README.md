@@ -133,7 +133,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://almentoria-api.herokuapp.com/api-docs/index.html)_
+_For more Info on how to use the API, please refer to the [al mentoria API Documentation](https://al-mentoria-api.herokuapp.com/api-docs/index.html)_
 
 ## Kanban board
 
